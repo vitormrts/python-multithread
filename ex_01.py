@@ -21,7 +21,7 @@ print("Tempo total SEM threads: ", end - start)
 start = perf_counter()
 
 for i in range(20):
-    t = threading.Thread(target=wait, name=i+1, args=(0.2, i+1,))
+    t = threading.Thread(target=wait, name=i+1, args=(0.2, i+1))
     t.start()
     threads.append(t)
 

@@ -1,3 +1,3 @@
 clear:
-	sudo rm *.jpg *.png *.gif *.jpeg
+	rm *.jpg *.png *.gif *.jpeg
 
