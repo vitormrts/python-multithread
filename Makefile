@@ -1,3 +1,3 @@
 clear:
-	rm *.jpg *.png *.gif *.jpeg
+	rm *.jpg *.png *.gif *.jpeg *.txt
 
