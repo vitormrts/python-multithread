@@ -1,3 +1,3 @@
 clear:
-	rm *.jpg *.png *.gif *.jpeg *.txt
+	rm -rf cats
 

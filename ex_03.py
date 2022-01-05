@@ -1,7 +1,7 @@
 from time import perf_counter, sleep, ctime, time
 import threading
 
-threads = []
+n = 5
 
 
 def timer(name, delay, repeat):
@@ -14,22 +14,35 @@ def timer(name, delay, repeat):
     print(name + " Terminou")
 
 
-start = perf_counter()
-for i in range(5):
-    timer(f"Timer {str(i)}", i, 2)
+def without_threads():
+    print("SEM THREADS")
+    start = perf_counter()
+    for i in range(n):
+        timer(f"Timer {str(i)}", i, 2)
+    end = perf_counter()
+    print("Tempo total SEM threads: ", end - start)
 
-end = perf_counter()
-print("Tempo total SEM threads: ", end - start)
 
-start = perf_counter()
+def with_threads():
+    print("COM THREADS")
+    threads = []
+    start = perf_counter()
+    for i in range(n):
+        t = threading.Thread(target=timer, args=(f"Timer {str(i)}", i, 2))
+        t.start()
+        threads.append(t)
+    for t in threads:
+        t.join()
+    end = perf_counter()
+    print("Tempo total COM threads: ", end - start)
 
-for i in range(5):
-    t = threading.Thread(target=timer, args=(f"Timer {str(i)}", i, 2))
-    t.start()
-    threads.append(t)
 
-for t in threads:
-    t.join()
+def main():
+    print("\nExemplo 3\n")
+    without_threads()
+    print("\n==============================\n")
+    with_threads()
 
-end = perf_counter()
-print("Tempo total COM threads: ", end - start)
+
+if __name__ == "__main__":
+    main()
