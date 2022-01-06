@@ -1,25 +1,20 @@
 from time import perf_counter
-import requests
 import concurrent.futures
 
-urls = ["https://en.wikipedia.org/wiki/" + str(i) for i in range(50)]
+n = 10
 
 
-def page_exists(url, timeout=10):
-    response = requests.get(url=url, timeout=timeout)
-    status = "unknown"
-    if response.status_code == 200:
-        status = "OK"
-    elif response.status_code == 404:
-        status = "Existe"
-    return f'{url} - {status}'
+def cpu_heavy(n):
+    count = 0
+    for i in range(10**8):
+        count += 1
 
 
 def without_threads():
     print("SEM THREADS")
     start = perf_counter()
-    for url in urls:
-        print(page_exists(url))
+    for i in range(n):
+        cpu_heavy(i)
     end = perf_counter()
     print("Tempo total SEM threads: ", end - start)
 
@@ -29,16 +24,16 @@ def with_threads():
     start = perf_counter()
     executor = concurrent.futures.ThreadPoolExecutor()
     futures = []
-    for url in urls:
-        futures.append(executor.submit(page_exists, url))
+    for i in range(n):
+        futures.append(executor.submit(cpu_heavy, i))
     for future in futures:
-        print(future.result())
+        future.result()
     end = perf_counter()
     print("Tempo total COM threads: ", end - start)
 
 
 def main():
-    print("\nExemplo 3\n")
+    print("\nExemplo 5\n")
     without_threads()
     print("\n==============================\n")
     with_threads()

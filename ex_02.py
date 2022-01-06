@@ -12,8 +12,6 @@ final_directory = os.path.join(current_directory, r'cats')
 if not os.path.exists(final_directory):
     os.makedirs(final_directory)
 
-print(final_directory)
-
 
 def get_cat():
     r = requests.get('https://api.thecatapi.com/v1/images/search')
