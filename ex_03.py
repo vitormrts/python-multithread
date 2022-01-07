@@ -11,7 +11,7 @@ def page_exists(url, timeout=10):
     if response.status_code == 200:
         status = "OK"
     elif response.status_code == 404:
-        status = "Existe"
+        status = "Não existe"
     return f'{url} - {status}'
 
 
